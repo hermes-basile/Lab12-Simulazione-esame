@@ -8,8 +8,37 @@ class Controller:
         # the model, which implements the logic of the program and holds the data
         self._model = model
 
-    def fillDDsRating(self):
-        pass
+    def riempiDropDown(self):
+        #se lo chiamo dopo un azione deve essere (self, e), guarda esame flights
+        #prima di avviarlo 3 pulizie
+        self._view.DDNOME.options.clear()
+        self._view.DDNOME.value = None
+        self.result1 = None #salvato nell'init
+
+        lista_da_caricare = [1,2,3,4]
+
+        for elemento in lista_da_caricare:
+            self._view.ddNodo.options.append(
+                ft.dropdown.Option(
+                    text=str(elemento),
+                    data=elemento,
+                    on_click=self.readResult1
+                )
+            )
+
+    def readResult1(self, e):
+        if e.control.data is None:
+            self.result1 = None
+        else:
+            self.result1 = float(e.control.data)
+
+
+        #se i dropdown sono 2 e devono essere entrambi selezionati per
+        # attivare un pulsante, sia qui, sia in readresult2 devo fare un metodo
+        #         self.check_btn_not_disabled() come in esame lab12
+
+
+
 
     #CREAZIONE GRAFO STANDARD
     def handleCreaGrafo(self, e):
