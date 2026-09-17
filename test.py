@@ -8,7 +8,9 @@ print(f"il numero di archi è {modello_prova.num_archi()}")
 #print(list(modello_prova._grafo.edges(data=True)))
 
 #print(list(modello_prova.componente_connessa_maggiore()))
-print(modello_prova.crea_path())
+#print(modello_prova.crea_path())
+print(modello_prova.crea_path_eta())
+
 
 
 

@@ -7,7 +7,7 @@ from database.DAO import DAO
 
 class Model:
     def __init__(self):
-        self.soluzione = None
+        self.soluzione1 = None
         lista_all_actor = DAO.getAllActor()
         self.idMapActor ={}
         for actor in lista_all_actor:
@@ -64,15 +64,15 @@ class Model:
         return max(nx.connected_components(self._grafo), key=len)
 
     def crea_path(self):
-        self.soluzione = []
+        self.soluzione1 = []
         for nodo in self._grafo.nodes():
             self.ricorsione1([nodo])
-        return self.soluzione
+        return self.soluzione1
 
     def ricorsione1(self, soluzione_parziale):
 
-        if len(soluzione_parziale) > len(self.soluzione):
-            self.soluzione = copy.deepcopy(soluzione_parziale)
+        if len(soluzione_parziale) > len(self.soluzione1):
+            self.soluzione1 = copy.deepcopy(soluzione_parziale)
 
         for vicino in self._grafo.neighbors(soluzione_parziale[-1]):
 
@@ -81,6 +81,30 @@ class Model:
                 soluzione_parziale.append(vicino)
                 self.ricorsione1(soluzione_parziale)
                 soluzione_parziale.pop()
+
+    def crea_path_eta(self):
+        self.soluzione = []
+
+        for nodo in self._grafo.nodes():
+            self.ricorsione([nodo])
+        return self.soluzione
+    def ricorsione(self, parziale):
+
+        if len(parziale) > len(self.soluzione):
+            self.soluzione = copy.deepcopy(parziale)
+
+        for vicino in self._grafo.neighbors(parziale[-1]):
+            if vicino not in parziale:
+                if vicino.date_of_birth > parziale[-1].date_of_birth:
+                    parziale.append(vicino)
+                    self.ricorsione(parziale)
+                    parziale.pop()
+
+
+
+
+
+
 
 
     def num_nodi(self):

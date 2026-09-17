@@ -57,5 +57,18 @@ class Controller:
             if cnt == len(lista_nodi):
                 testo+= nodo.name
         self._view.txt_result.controls.append(ft.Text(f"{testo}"))
+
+        self._view.txt_result.controls.append(ft.Text(f"Il percorso maggiore con età decrescente è:"))
+        lista_nodi_eta = self._model.crea_path_eta()
+        testo1 = ""
+        cnt1=1
+        for nodo in lista_nodi_eta:
+
+            if cnt1 < len(lista_nodi_eta):
+                testo1 += nodo.name +" --> "
+                cnt1 +=1
+            if cnt1 == len(lista_nodi_eta):
+                testo1+= nodo.name
+        self._view.txt_result.controls.append(ft.Text(f"{testo1}"))
         self._view.update_page()
 
