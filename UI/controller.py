@@ -8,8 +8,7 @@ class Controller:
         # the model, which implements the logic of the program and holds the data
         self._model = model
 
-        self.choice1 = None
-        self.choice2 = None
+
 
 
     def fillDDsRating(self):
@@ -26,34 +25,35 @@ class Controller:
 
         choice1 = self._view._ddrating1.value
         choice2 = self._view._ddrating2.value
-        if self.choice1 is None or self.choice2 is None:
+        if choice1 is None or choice2 is None:
             self._view.txt_result.controls.append(ft.Text("Prima di creare il grafo devi selezionare entrambi i valori dal"
                                                           "menù a tendina", color = "red"))
             self._view.update_page()
-        else:
+            return
 
 
 
-            self._view.txt_result.controls.clear()
-            self._model.buildGrafoPesato(choice1, choice2)
-            self._view.txt_result.controls.append(ft.Text("Grafo correttamente creato:"))
-            self._view.txt_result.controls.append(ft.Text(f"il grafo ha {self._model.num_nodi()} nodi e { self._model.num_archi()} archi"))
 
-            lista_5_archi = self._model.five_archi_peso_maggiore()
-            self._view.txt_result.controls.append(ft.Text(f"i 5 archi di peso maggiore sono:"))
-            for arco in lista_5_archi:
-                self._view.txt_result.controls.append(ft.Text(f"{arco[0].name} --> {arco[1].name} peso:{arco[2]["peso"]}"))
+        self._view.txt_result.controls.clear()
+        self._model.buildGrafoPesato(choice1, choice2)
+        self._view.txt_result.controls.append(ft.Text("Grafo correttamente creato:"))
+        self._view.txt_result.controls.append(ft.Text(f"il grafo ha {self._model.num_nodi()} nodi e { self._model.num_archi()} archi"))
 
-            self._view.txt_result.controls.append(ft.Text(f"Il grafo ha {self._model.numero_componenti_connesse()} componenti connesse:"))
+        lista_5_archi = self._model.five_archi_peso_maggiore()
+        self._view.txt_result.controls.append(ft.Text(f"i 5 archi di peso maggiore sono:"))
+        for arco in lista_5_archi:
+            self._view.txt_result.controls.append(ft.Text(f"{arco[0].name} --> {arco[1].name} peso:{arco[2]["peso"]}"))
 
-            lista_attori = list(self._model.componente_connessa_maggiore())
-            self._view.txt_result.controls.append(ft.Text(f"La componente connessa maggiore è lunga {len(lista_attori)}:"))
+        self._view.txt_result.controls.append(ft.Text(f"Il grafo ha {self._model.numero_componenti_connesse()} componenti connesse:"))
+
+        lista_attori = list(self._model.componente_connessa_maggiore())
+        self._view.txt_result.controls.append(ft.Text(f"La componente connessa maggiore è lunga {len(lista_attori)}:"))
 
 
-            for actor in lista_attori:
-                self._view.txt_result.controls.append(ft.Text( f"{actor.name}"))
+        for actor in lista_attori:
+            self._view.txt_result.controls.append(ft.Text( f"{actor.name}"))
 
-            self._view.update_page()
+        self._view.update_page()
 
 
     def handleCammino(self, e):

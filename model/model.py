@@ -53,14 +53,17 @@ class Model:
         lista_5_magg = []
         lista_archi = list(self._grafo.edges(data=True))
         lista_archi_ordinata = sorted(lista_archi, key=lambda elemento_lista: elemento_lista[2]["peso"], reverse=True)
-        for i in range(0,6):
-            lista_5_magg.append(lista_archi_ordinata[i])
-        return lista_5_magg
+
+        return lista_archi_ordinata[:5]
+
+
 
     def numero_componenti_connesse(self):
         return nx.number_connected_components(self._grafo)
 
     def componente_connessa_maggiore(self):
+        if self._grafo.number_of_nodes()==0:
+            return []
         return max(nx.connected_components(self._grafo), key=len)
 
     def crea_path(self):
